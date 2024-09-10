@@ -38,13 +38,15 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+
   /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.state.count + 1, title: 'Новая запись' }],
+      count: this.state.count + 1
     });
   }
 
@@ -67,9 +69,30 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-        }
+        item.selected 
+        ? item.selected = !item.selected 
+        : item.code === code 
+        ? item.selected = !item.selected
+        : item.selected
+
+
+        // if (item.code === code) {
+        //   item.selected ? item.selected = false : item.selected = true
+        //   console.log(item.selected)
+        // }
+        return item;
+      }),
+    });
+  }
+
+  countItem(code) {
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item => {
+        if(item.code === code) {
+        if (item.selected) {
+          item.count ? item.count += 1 : item.count = 1
+        }}
         return item;
       }),
     });

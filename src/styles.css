@@ -54,6 +54,14 @@ body {
   padding: 20px 10px;
 }
 
+.Item-count {
+  width: 100%;
+  color: rgba(128, 128, 128, 0.6);
+  display: flex;
+  align-items: center;
+
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;
