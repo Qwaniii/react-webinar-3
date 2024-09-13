@@ -27,8 +27,7 @@ function App({ store }) {
                 onClick={() => (store.selectItem(item.code), store.countItem(item.code))}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                {item.count && <div className="Item-count">Выделяли {item.count} раз</div>}
+                <div className="Item-title">{item.title}{item.count && <span className="Item-count">Выделяли {item.count} раз</span>}</div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
