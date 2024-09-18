@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
 import './style.css';
 
 function Item(props) {
@@ -28,13 +27,6 @@ function Item(props) {
       <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">
         {props.item.title}{' '}
-        {/* {count
-          ? ` | Выделяли ${count} ${plural(count, {
-              one: 'раз',
-              few: 'раза',
-              many: 'раз',
-            })}`
-          : ''} */}
       </div>
       <div className='Item-price'>{props.item.price}<span>{`₽`}</span></div>
       {props.item.count && <div className='Item-count'>{props.item.count}{` шт`}</div>}
@@ -49,16 +41,10 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number,
+    price: PropTypes.number,
   }).isRequired,
-  toCart: PropTypes.func,
-  onSelect: PropTypes.func,
-};
-
-Item.defaultProps = {
-  toCart: () => {},
-  onSelect: () => {},
+  toButtonAction: PropTypes.func,
+  buttonText: PropTypes.string
 };
 
 export default React.memo(Item);

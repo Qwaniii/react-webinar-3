@@ -15,6 +15,7 @@ function ModalLayout({ children, onClose }) {
 
 ModalLayout.propTypes = {
   children: PropTypes.node,
+  onClose: PropTypes.func
 };
 
 export default React.memo(ModalLayout);

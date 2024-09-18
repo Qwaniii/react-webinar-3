@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Item from '../item';
 import './style.css';
 
-function List({ list, buttonAction, buttonText,  }) {
+function List({ list, buttonAction = () => {}, buttonText = ""  }) {
   return (
     <div className="List">
       {list.map(item => (
@@ -21,13 +21,8 @@ List.propTypes = {
       code: PropTypes.number,
     }),
   ).isRequired,
-  onDeleteItem: PropTypes.func,
-  onSelectItem: PropTypes.func,
-};
-
-List.defaultProps = {
-  onDeleteItem: () => {},
-  onSelectItem: () => {},
+  buttonAction: PropTypes.func,
+  buttonText: PropTypes.string,
 };
 
 export default React.memo(List);

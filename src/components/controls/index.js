@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
 
-function Controls({ cart , onModal, basket}) {
+function Controls({ cart , onModal = () => {}, basket=false}) {
   return (
     <div className="Controls">
       <div className='Controls_empty'></div>
-      <div className='Controls_text'>{!basket ? `В корзине:` : `Итого`}</div>
+      <div className='Controls_text'>{!basket ? `В корзине:` : cart.length > 0 ? `Итого` : ""}</div>
       <div className='Controls_cart'>
                 {cart.length > 0 ? 
                 !basket ? (`${cart.length} ${plural(cart.length, {
@@ -19,18 +19,17 @@ function Controls({ cart , onModal, basket}) {
                 : !basket ? `пусто` : `нет товаров`}
       </div>
       <div  className='Controls_button'>
-        {onModal && <button onClick={() => onModal()}>Перейти</button>}
+        {!basket && <button onClick={() => onModal()}>Перейти</button>}
       </div>
     </div>
   );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func,
+  cart: PropTypes.array,
+  onModal: PropTypes.func,
+  basket: PropTypes.bool
 };
 
-Controls.defaultProps = {
-  onAdd: () => {},
-};
 
 export default React.memo(Controls);
