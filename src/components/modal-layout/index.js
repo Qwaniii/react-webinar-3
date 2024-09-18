@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function ModalLayout({ children }) {
+function ModalLayout({ children, onClose }) {
   const cn = bem('ModalLayout');
 
   return (
-    <div className={cn()}>
-      <div className={cn('center')}>{children}</div>
+    <div className={cn()} onClick={onClose}>
+      <div className={cn('center')} onClick={(e) =>  e.stopPropagation()}>{children}</div>
     </div>
   );
 }

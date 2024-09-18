@@ -7,6 +7,7 @@ function Item(props) {
   // Счётчик выделений
   // const [count, setCount] = useState(0);
 
+
   const callbacks = {
     // onClick: () => {
     //   props.onSelect(props.item.code);
@@ -14,16 +15,15 @@ function Item(props) {
     //     setCount(count + 1);
     //   }
     // },
-    toCart: () => {
-      props.toCart(props.item.code);
-    },
-  };
+    toAction: () => {
+          props.toButtonAction(props.item.code);
+      }
+    };
 
   return (
     <div
       // className={'Item' + (props.item.selected ? ' Item_selected' : '')}
       className={'Item'}
-      onClick={callbacks.onClick}
     >
       <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">
@@ -37,8 +37,9 @@ function Item(props) {
           : ''} */}
       </div>
       <div className='Item-price'>{props.item.price}<span>{`₽`}</span></div>
+      {props.item.count && <div className='Item-count'>{props.item.count}{` шт`}</div>}
       <div className="Item-actions">
-        <button onClick={callbacks.toCart}>Добавить</button>
+        <button onClick={callbacks.toAction}>{props.buttonText}</button>
       </div>
     </div>
   );

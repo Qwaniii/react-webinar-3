@@ -5,6 +5,10 @@ body {
   font-family: sans-serif;
 }
 
+button {
+  min-width: 95px;
+}
+
 .PageLayout {
   max-width: 1024px;
   min-height: 100vh;

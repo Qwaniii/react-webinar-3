@@ -14,7 +14,18 @@ function App({ store }) {
   const list = store.getState().list;
   let cart = store.getState().cart
 
-  const [modal, setModal] = useState(false)
+  const [modal, setModal] = useState({
+    title: "Корзина",
+    state: false,
+    button: "Закрыть",
+    buttonText: "Удалить",
+    basket: true
+  })
+  const [page, setPage] = useState({
+    title: "Магазин",
+    buttonText: "Добавить",
+  })
+
 
   const callbacks = {
     onAddToCart: useCallback(
@@ -24,38 +35,43 @@ function App({ store }) {
       [store],
     ),
 
-    onModal: useCallback(
-      () => setModal(!modal)
-      // code => {
-      //   store.selectItem(code);
-      // },
-      // [store],
+    onDelete: useCallback(
+      code => {
+        store.toDelete(code);
+      },
+      [store],
     ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
+    onModal: useCallback(
+      () => {
+        setModal((prevState) => ({...prevState, state: !modal.state}))
+      }
+    ),
+
+    // onAddItem: useCallback(() => {
+    //   store.addItem();
+    // }, [store]),
   };
 
   return (
     <>
       <PageLayout>
-        <Head title="Магазин" />
+        <Head title={page.title} />
         <Controls cart={cart} onModal={callbacks.onModal} />
         <List
           list={list}
-          onAddToCart={callbacks.onAddToCart}
-          onSelectItem={callbacks.onSelectItem}
+          buttonAction={callbacks.onAddToCart}
+          buttonText={page.buttonText}
         />
       </PageLayout>
-      {modal && <ModalLayout>
-        <Head title="Корзина"  button="Закрыть" onClose={callbacks.onModal}/>
-        <Controls cart={cart} onModal={callbacks.onModal} />
+      {modal.state && <ModalLayout onClose={callbacks.onModal}>
+        <Head title={modal.title}  button={modal.button} onClose={callbacks.onModal}/>
         <List
           list={cart}
-          onAddToCart={callbacks.onAddToCart}
-          onSelectItem={callbacks.onSelectItem}
+          buttonAction={callbacks.onDelete}
+          buttonText={modal.buttonText}
         />
+        <Controls cart={cart} basket={modal.basket}/>
       </ModalLayout>}
     </>
   );

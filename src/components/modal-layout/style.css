@@ -11,9 +11,9 @@
 }
 
 .ModalLayout-center {
-  max-width: 800px;
+  max-width: 900px;
   min-height: 500px;
-  transform: translateY(50%);
+  transform: translateY(30%);
   margin: 0 auto;
   background-color: #fff;
   box-sizing: border-box;

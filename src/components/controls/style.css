@@ -1,8 +1,6 @@
 .Controls {
   display: flex;
-  justify-content: flex-start;
-  border-bottom: 1px dashed #ccc;
-  
+  justify-content: flex-start;  
 }
 
 .Controls_empty {
@@ -25,7 +23,9 @@
 }
 
 .Controls_button {
+  width: 165px;
   display: flex;
+  box-sizing: border-box;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }

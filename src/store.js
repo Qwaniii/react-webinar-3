@@ -41,24 +41,23 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Удаление товара из корзины
    */
-  goToCart() {
+  toDelete(code) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      cart: this.state.cart.filter(item => item.code !== code)
     });
   }
 
   /**
-   * Удаление записи по коду
+   * Добавление в корзину
    * @param code
    */
   addToCart(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      // cart: [...this.state.cart, ...this.state.list.filter(item => item.code === code)]
+      // Проверяем , есть ли продукт в корзине
       cart: this.state.cart.find(item => item.code === code) 
       ?  this.state.cart.map(item => item.code === code ? {...item, count: item.count + 1} : {...item})
       : [...this.state.cart, ...this.state.list.filter(item => {
