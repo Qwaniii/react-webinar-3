@@ -59,7 +59,9 @@ class Store {
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
       // cart: [...this.state.cart, ...this.state.list.filter(item => item.code === code)]
-      cart: [...this.state.cart, ...this.state.list.filter(item => {
+      cart: this.state.cart.find(item => item.code === code) 
+      ?  this.state.cart.map(item => item.code === code ? {...item, count: item.count + 1} : {...item})
+      : [...this.state.cart, ...this.state.list.filter(item => {
         item.count = 1
         return item.code === code
       })]

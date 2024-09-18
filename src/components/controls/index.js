@@ -9,13 +9,13 @@ function Controls({ cart , onModal }) {
       <div className='Controls_empty'></div>
       <div className='Controls_text'>В корзине:</div>
       <div className='Controls_cart'>
-                {/* {cart.length > 0 ? 
+                {cart.length > 0 ? 
                 `${cart.length} ${plural(cart.length, {
                   one: 'товар',
                   few: 'товара',
                   many: 'товаров',
-                  })} / ${cart.reduce((sum, current) => sum + current.price, 0)} ₽` 
-                : `пусто`} */}
+                  })} / ${cart.reduce((sum, current) => sum + current.price * current.count, 0)} ₽` 
+                : `пусто`}
       </div>
       <div  className='Controls_button'>
         <button onClick={() => onModal()}>Перейти</button>
