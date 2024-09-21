@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Item(props) {
+function CartItem(props) {
   // Счётчик выделений
   // const [count, setCount] = useState(0);
 
@@ -28,8 +28,8 @@ function Item(props) {
       <div className="Item-title">
         {props.item.title}{' '}
       </div>
-      <div className='Item-price'>{new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumSignificantDigits: 10 }).format(
-    props.item.price)}</div>
+      <div className='Item-price'>{props.onFormatNum(props.item.price)}</div>
+      <div className='Item-count'>{props.item.count}{` шт`}</div>
       <div className="Item-actions">
         <button onClick={callbacks.toAction}>{props.buttonText}</button>
       </div>
@@ -37,7 +37,7 @@ function Item(props) {
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
@@ -47,4 +47,4 @@ Item.propTypes = {
   buttonText: PropTypes.string
 };
 
-export default React.memo(Item);
+export default React.memo(CartItem);

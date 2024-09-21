@@ -3,27 +3,7 @@
   justify-content: flex-start;  
 }
 
-.Controls_empty {
-  width: 100%;
-  padding: 20px 10px;
-
-}
-
-.Controls_text {
-  text-wrap:nowrap;
-  display: flex;
-  padding: 20px 20px 20px 10px;
-}
-
-.Controls_cart {
-  text-wrap:nowrap;
-  font-weight: bold;
-  padding: 20px 20px 20px 10px;
-
-}
-
 .Controls_button {
-  width: 165px;
   display: flex;
   box-sizing: border-box;
   justify-content: flex-end;

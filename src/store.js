@@ -44,9 +44,14 @@ class Store {
    * Удаление товара из корзины
    */
   toDelete(code) {
+
+    const inCart = this.state.cart.find(item => item.code === code) 
+
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code),
+      total: this.state.total - (inCart.price * inCart.count),
+      uniqCount: this.state.uniqCount - 1,
     });
   }
 
@@ -55,17 +60,26 @@ class Store {
    * @param code
    */
   addToCart(code) {
+          // Проверяем , есть ли продукт в корзине
+    const inCart = this.state.cart.find(item => item.code === code) 
+    const inList = this.state.list.find(item => item.code === code) 
+
+    inCart ?
     this.setState({
       ...this.state,
-      // Проверяем , есть ли продукт в корзине
-      cart: this.state.cart.find(item => item.code === code) 
-      ?  this.state.cart.map(item => item.code === code ? {...item, count: item.count + 1} : {...item})
-      : [...this.state.cart, ...this.state.list.filter(item => {
+      cart: this.state.cart.map(item => item.code === code ? {...item, count: item.count + 1} : {...item}),
+      total: this.state.total + inList.price
+      })
+    :
+    this.setState({
+      ...this.state,
+      cart: [...this.state.cart, ...this.state.list.filter(item => {
         item.count = 1
         return item.code === code
-      })]
-      })
-    console.log(this.state.cart)
+      })],
+      total: this.state.total + inList.price,
+      uniqCount: this.state.uniqCount + 1
+    })
   }
   /**
    * Выделение записи по коду

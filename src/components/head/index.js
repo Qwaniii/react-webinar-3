@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import Controls from '../controls';
 
 function Head({ title, button="", onClose=()=>{} }) {
   return (
     <div className="Head">
       <h1>{title}</h1>
       <div className='Head_button'>
-        {button && <button onClick={onClose}>{button}</button>}
+        {button && <Controls text="Закрыть" onAction={onClose}/>}
       </div>
     </div>
   );

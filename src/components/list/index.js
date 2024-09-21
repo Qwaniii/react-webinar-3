@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Item from '../item';
 import './style.css';
 
-function List({ list, buttonAction = () => {}, buttonText = ""  }) {
+function List({ list, newItem: NewItem, buttonAction = () => {}, buttonText = "", onFormatNum  }) {
   return (
     <div className="List">
       {list.map(item => (
         <div key={item.code} className="List-item">
-          <Item item={item} toButtonAction={buttonAction} buttonText={buttonText}/>
+          <NewItem 
+            item={item} 
+            toButtonAction={buttonAction} 
+            buttonText={buttonText} 
+            onFormatNum={onFormatNum}/>
         </div>
       ))}
     </div>
@@ -21,7 +24,9 @@ List.propTypes = {
       code: PropTypes.number,
     }),
   ).isRequired,
+  newItem: PropTypes.elementType,
   buttonAction: PropTypes.func,
+  onFormatNum: PropTypes.func,
   buttonText: PropTypes.string,
 };
 
