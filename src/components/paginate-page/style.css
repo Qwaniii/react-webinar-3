@@ -1,0 +1,11 @@
+.PaginatePage {
+    display: flex;
+    justify-content: center;
+    padding: 2px 8px;
+    cursor: pointer;
+}
+
+.PaginatePage.current {
+    background-color: #008cff;
+    color: white;
+}

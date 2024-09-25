@@ -3,33 +3,32 @@ import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
-import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
-import Paginate from '../../components/paginate';
-import { pages, translate } from '../../utils';
-import { dict } from '../../../src/dict'
+import { pages } from '../../utils';
+import { Link, useParams } from 'react-router-dom';
+import ProductPage from '../../components/product-page';
 
-function Main() {
+function Product() {
+
+  const { productId } = useParams();
   const store = useStore();
 
   useEffect(() => {
-    store.actions.catalog.paginate(10, 0);
-  }, []);
+    store.actions.product.getProduct(productId);
+    return () => store.actions.product.initialState()
+  }, [productId]);
 
   const select = useSelector(state => ({
-    list: state.catalog.list,
-    maxPage: state.catalog.maxPage,
-    page: state.catalog.page,
+    product: state.product.goods,
+    loading: state.product.loading,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    lang: state.lang.language,
-    dict: state.lang.dict
   }));
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    addToBasket: useCallback((_id, product) => store.actions.basket.addToBasket(_id, product), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     
@@ -41,26 +40,14 @@ function Main() {
 
   };
 
-  const renders = {
-    item: useCallback(
-      item => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
-      },
-      [callbacks.addToBasket],
-    ),
-  };
-
-
-
 
   return (
     <PageLayout>
-      <Head title={select.dict.title} changeLang={callbacks.changeLang}/>
+      <Head title={select?.product?.title}  changeLang={callbacks.changeLang}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      <List list={select.list} renderItem={renders.item} />
-      <Paginate pages={callbacks.allPage()} changePage={callbacks.changePage}/>
+      <ProductPage onBasket={callbacks.addToBasket} product={select?.product} loading={select.loading}/>
     </PageLayout>
   );
 }
 
-export default memo(Main);
+export default memo(Product);

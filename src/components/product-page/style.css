@@ -1,0 +1,15 @@
+.ProductPage {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.ProductPage-title.bold {
+    font-weight: bold;
+}
+
+.ProductPage-price {
+    font-size: 18px;
+    font-weight: bold;
+}

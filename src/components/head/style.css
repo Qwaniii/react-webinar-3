@@ -1,9 +1,41 @@
 .Head {
   height: 80px;
   background: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.Head h1 {
+.Head-h1 {
   margin: 0;
   padding: 20px 20px 10px;
 }
+
+.Head-lang {
+  padding: 10px;
+  opacity: .3;
+}
+
+.Head-lang span {
+  cursor: pointer;
+  transition: all .3s;
+
+}
+
+.Head-lang span:hover {
+  opacity: .8;
+}
+
+.Head-lang span:active {
+  color: blue
+}
+
+.Head-lang.active {
+  border-radius: 50%;
+  background-color: white;
+  color: black;
+  opacity: 1;
+}
+
+
+

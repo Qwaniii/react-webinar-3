@@ -3,9 +3,15 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import './style.css';
+import { Link } from 'react-router-dom';
+import useSelector from '../../store/use-selector';
 
 function Item(props) {
   const cn = bem('Item');
+
+  const select = useSelector(state => ({
+    dict: state.lang.dict,
+  }));
 
   const callbacks = {
     onAdd: e => props.onAdd(props.item._id),
@@ -14,10 +20,10 @@ function Item(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>{props.item.title}</div>
+      <Link to={`/products/${props.item._id}`} className={cn('title')}>{props.item.title}</Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{select.dict.add}</button>
       </div>
     </div>
   );
