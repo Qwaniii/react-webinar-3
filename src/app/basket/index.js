@@ -13,7 +13,7 @@ function Basket() {
     list: state.basket.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    dict: state.lang.dict
+    dict: state.lang.dict,
   }));
 
   const callbacks = {

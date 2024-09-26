@@ -13,7 +13,8 @@ class Catalog extends StoreModule {
       maxPage: 10,
       skip: 0,
       limit: 10,
-      page: 1
+      page: 1,
+      loading: false
     };
   }
 
@@ -29,29 +30,39 @@ class Catalog extends StoreModule {
     );
   }
 
-  async paginate() {
-    const {skip, limit} = this.getState()
-    const response = await fetch(`api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`);
-    const json = await response.json();
-    this.setState(
-      {
-        ...this.getState(),
-        list: json.result.items,
-        maxPage: Math.ceil(json.result.count/ this.getState().limit),
-      },
-      'Загружены  товары из АПИ',
-    );
-  }
+  async paginate(lang) {
+    try {
+      this.setState({...this.getState(), loading: false});
+
+      const {skip, limit} = this.getState()
+      const response = await fetch(`api/v1/articles?limit=${limit}&skip=${skip}&lang=${lang}&fields=items(_id, title, price),count`);
+      const json = await response.json();
+      this.setState(
+        {
+          ...this.getState(),
+          list: json.result.items,
+          maxPage: Math.ceil(json.result.count/ this.getState().limit),
+        },
+        'Загружены  товары из АПИ',
+      );
+    }
+    catch (e) {
+      console.error(e)
+    }
+    finally {
+      this.setState({...this.getState(), loading: true});
+    }
+   }
 
 
-  changePage(page) {
+  changePage(page, lang) {
     const limit = this.getState().limit
     this.setState({
       ...this.getState(),
       skip: limit * (page - 1),
       page
     })
-    this.paginate()
+    this.paginate(lang)
   }
 
 

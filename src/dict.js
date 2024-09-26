@@ -14,7 +14,9 @@ export const dict = {
         price: "Price",
         empty: "empty",
         basket: "Basket",
-        close: "Close"
+        close: "Close",
+        piece: "psc",
+        loading: "Loading"
     },
     ru: {
         title: "Магазин",
@@ -31,10 +33,8 @@ export const dict = {
         price: "Цена",
         empty: "пусто",
         basket: "Корзина",
-        close: "Закрыть"
-
-
-
-
+        close: "Закрыть",
+        piece: "шт",
+        loading: "Загрузка"
     },
 }

@@ -14,21 +14,24 @@ function Product() {
   const { productId } = useParams();
   const store = useStore();
 
-  useEffect(() => {
-    store.actions.product.getProduct(productId);
-    return () => store.actions.product.initialState()
-  }, [productId]);
-
   const select = useSelector(state => ({
     product: state.product.goods,
     loading: state.product.loading,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    lang: state.lang.language
   }));
+
+  useEffect(() => {
+    store.actions.product.getProduct(productId, select.lang);
+    return () => store.actions.product.initialState()
+  }, [productId, select.lang]);
+
+
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback((_id, product) => store.actions.basket.addToBasket(_id, product), [store]),
+    addToBasket: useCallback((_id, product) => (store.actions.basket.addToBasket(_id, product), store.actions.lang.productTranslate(_id)) [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     

@@ -16,7 +16,7 @@ function ProductPage({onBasket, product, loading}) {
     onAdd: e => onBasket(product._id, product),
   };
 
-  if(!loading) return <div className={cn("", loading && "loading")}>Загрузка</div>
+  if(!loading) return <div className={cn("", loading && "loading")}>{select.dict.loading}</div>
 
   return (
     <div className={cn()}>
