@@ -16,7 +16,8 @@ export const dict = {
         basket: "Basket",
         close: "Close",
         piece: "psc",
-        loading: "Loading"
+        loading: "Loading",
+        error: "Page not found"
     },
     ru: {
         title: "Магазин",
@@ -35,6 +36,7 @@ export const dict = {
         basket: "Корзина",
         close: "Закрыть",
         piece: "шт",
-        loading: "Загрузка"
+        loading: "Загрузка",
+        error: "Страница не найдена"
     },
 }

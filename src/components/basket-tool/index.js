@@ -32,7 +32,7 @@ function BasketTool({ sum, amount, onOpen }) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <Link to={`/`} className={cn('right')}>{select.dict.main}</Link>
+      <Link to={`/`} className={cn('left')}>{select.dict.main}</Link>
       <div className={cn('main')}><span className={cn('label')}>{select.dict.inBasket}:</span>
       <span className={cn('total')}>
         {amount

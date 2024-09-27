@@ -8,6 +8,7 @@ import useSelector from '../../store/use-selector';
 import { pages } from '../../utils';
 import { Link, useParams } from 'react-router-dom';
 import ProductPage from '../../components/product-page';
+import Error from '../error';
 
 function Product() {
 
@@ -42,6 +43,10 @@ function Product() {
     changeLang: useCallback((code) => store.actions.lang.changeLang(code))
 
   };
+
+  if(!select.product) {
+    return <Error/>
+  }
 
 
   return (
