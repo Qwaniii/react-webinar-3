@@ -6,11 +6,7 @@ import useSelector from '../../store/use-selector';
 
 
 
-function Head({ title, changeLang }) {
-
-  const select = useSelector(state => ({
-    lang: state.lang.language,
-  }));
+function Head({ title, changeLang, lang }) {
   
   const cn = bem('Head');
 
@@ -18,8 +14,8 @@ function Head({ title, changeLang }) {
     <div className={cn()}>
       <h1 className={cn('h1')}>{title}</h1>
       <div  className={cn('lang')}>
-        <span className={cn("lang", select.lang === "ru" && 'active' )} onClick={() => changeLang("ru")}>RU</span>
-        <span className={cn("lang", select.lang === "en" && 'active' )} onClick={() => changeLang("en")}>EN</span>
+        <span className={cn("lang", lang === "ru" && 'active' )} onClick={() => changeLang("ru")}>RU</span>
+        <span className={cn("lang", lang === "en" && 'active' )} onClick={() => changeLang("en")}>EN</span>
       </div>
     </div>
   );

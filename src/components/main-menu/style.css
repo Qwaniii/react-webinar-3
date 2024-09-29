@@ -1,0 +1,16 @@
+.MainMenu {
+    float: left;
+    padding: 20px;
+    font-size: 18px;
+
+}
+
+.MainMenu-left {
+    color: #0099ff;
+    text-decoration: underline;
+    transition: opacity .3s;
+  }
+
+  .MainMenu-left:hover {
+    opacity: .7;
+}

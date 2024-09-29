@@ -5,15 +5,13 @@ import './style.css';
 import useSelector from '../../store/use-selector';
 import { dict } from '../../dict';
 
-function Loading() {
+function Loading({ loading }) {
 
-  const select = useSelector(state => ({
-    dict: state.lang.dict
-  }));
+
   return (
     <>
       <div className="Loading">
-        {select.dict.loading}
+        {loading}
       </div>
     </>
   );

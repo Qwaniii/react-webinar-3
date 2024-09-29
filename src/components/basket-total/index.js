@@ -5,14 +5,11 @@ import { numberFormat } from '../../utils';
 import './style.css';
 import useSelector from '../../store/use-selector';
 
-function BasketTotal({ sum }) {
-  const select = useSelector(state => ({
-    dict: state.lang.dict,
-  }));
+function BasketTotal({ sum, total }) {
   const cn = bem('BasketTotal');
   return (
     <div className={cn()}>
-      <span className={cn('cell')}>{select.dict.total}</span>
+      <span className={cn('cell')}>{total}</span>
       <span className={cn('cell')}> {numberFormat(sum)} ₽</span>
       <span className={cn('cell')}></span>
     </div>

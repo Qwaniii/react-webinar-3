@@ -3,9 +3,26 @@
     justify-content: center;
     padding: 2px 8px;
     cursor: pointer;
+    opacity: .6;
+    transition: all .3s ;
+}
+
+.PaginatePage:hover  {
+    background-color: rgba(0, 255, 255, 0.1);
+    opacity: .9;
 }
 
 .PaginatePage.current {
+    opacity: 1;
     background-color: #008cff;
     color: white;
+}
+
+.PaginatePage.current:hover {
+    opacity: .7;
+}
+
+.PaginatePage.dot {
+    background-color: white;
+    color: rgba(128, 128, 128, 0.7);
 }

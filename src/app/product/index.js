@@ -9,6 +9,7 @@ import { pages } from '../../utils';
 import { Link, useParams } from 'react-router-dom';
 import ProductPage from '../../components/product-page';
 import Error from '../error';
+import MainMenu from '../../components/main-menu';
 
 function Product() {
 
@@ -20,7 +21,8 @@ function Product() {
     loading: state.product.loading,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    lang: state.lang.language
+    lang: state.lang.language,
+    dict: state.lang.dict
   }));
 
   useEffect(() => {
@@ -51,9 +53,25 @@ function Product() {
 
   return (
     <PageLayout>
-      <Head title={select?.product?.title}  changeLang={callbacks.changeLang}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      <ProductPage onBasket={callbacks.addToBasket} product={select?.product} loading={select.loading}/>
+      <Head 
+        title={select?.product?.title}  
+        changeLang={callbacks.changeLang}
+      />
+      <MainMenu 
+        menu={select.dict.main}
+      />
+      <BasketTool 
+        onOpen={callbacks.openModalBasket} 
+        amount={select.amount} sum={select.sum} 
+        dict={select.dict}
+        lang={select.lang}
+      />
+      <ProductPage 
+        onBasket={callbacks.addToBasket}
+        product={select?.product} 
+        loading={select.loading}
+        dict={select.dict}
+      />
     </PageLayout>
   );
 }

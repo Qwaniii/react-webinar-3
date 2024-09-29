@@ -14,6 +14,7 @@
 .Head-lang {
   padding: 10px;
   opacity: .3;
+  transition: all .3s;
 }
 
 .Head-lang span {
@@ -35,6 +36,7 @@
   background-color: white;
   color: black;
   opacity: 1;
+  font-weight: bold;
 }
 
 

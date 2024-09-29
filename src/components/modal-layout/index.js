@@ -7,10 +7,6 @@ import useSelector from '../../store/use-selector';
 function ModalLayout(props) {
   const cn = bem('ModalLayout');
 
-  const select = useSelector(state => ({
-    dict: state.lang.dict,
-  }));
-
   // Корректировка центра, если модалка больше окна браузера.
   const layout = useRef();
   const frame = useRef();
@@ -33,9 +29,9 @@ function ModalLayout(props) {
     <div className={cn()} ref={layout}>
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
-          <h1 className={cn('title')}>{props.title}</h1>
+          <h1 className={cn('title')}>{props.dict.title}</h1>
           <button className={cn('close')} onClick={props.onClose}>
-            {select.dict.close}
+            {props.dict.close}
           </button>
         </div>
         <div className={cn('content')}>{props.children}</div>

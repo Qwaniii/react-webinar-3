@@ -1,32 +1,27 @@
-import { memo, useCallback, useState } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat } from '../../utils';
 import './style.css';
-import useSelector from '../../store/use-selector';
 
-function ProductPage({onBasket, product, loading}) {
+function ProductPage({onBasket, product, loading, dict}) {
   const cn = bem('ProductPage');
-
-  const select = useSelector(state => ({
-    dict: state.lang.dict,
-  }));
 
   const callbacks = {
     onAdd: e => onBasket(product._id, product),
   };
 
-  if(!loading) return <div className={cn("", loading && "loading")}>{select.dict.loading}</div>
+  if(!loading) return <div className={cn("", loading && "loading")}>{dict.loading}</div>
 
   return (
     <div className={cn()}>
     <div className={cn('title')}>{product?.description}</div>
-    <div className={cn('title')}>{select.dict.madeIn}: <span className={cn('title', 'bold')}>{product?.madeIn.title} ({product?.madeIn.code})</span></div>
-    <div className={cn('title')}>{select.dict.category}: <span className={cn('title', 'bold')}>{product?.category.title}</span></div>
-    <div className={cn('title')}>{select.dict.edition}: <span className={cn('title', 'bold')}>{product?.edition}</span></div>
-    <div className={cn('price')}>{select.dict.price}: {numberFormat(product?.price)}  ₽</div>
+    <div className={cn('title')}>{dict.madeIn}: <span className={cn('title', 'bold')}>{product?.madeIn.title} ({product?.madeIn.code})</span></div>
+    <div className={cn('title')}>{dict.category}: <span className={cn('title', 'bold')}>{product?.category.title}</span></div>
+    <div className={cn('title')}>{dict.edition}: <span className={cn('title', 'bold')}>{product?.edition}</span></div>
+    <div className={cn('price')}>{dict.price}: {numberFormat(product?.price)}  ₽</div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAdd}>{select.dict.add}</button>
+        <button onClick={callbacks.onAdd}>{dict.add}</button>
       </div>
     </div>
   );

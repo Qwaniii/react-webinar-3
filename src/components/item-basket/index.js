@@ -1,41 +1,40 @@
-import { memo, useCallback } from 'react';
+import { memo, useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { numberFormat } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import './style.css';
 import { Link } from 'react-router-dom';
-import useSelector from '../../store/use-selector';
-import useStore from '../../store/use-store';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
+  
+  const [mainTitle, setMainTitle] = useState(props.getTitle(props.item._id))
 
-  const store = useStore();
-
-  const select = useSelector(state => ({
-    dict: state.lang.dict,
-    lang: state.lang.language,
-    product: state.lang.product,
-  }));
+  useEffect(() => {
+    if(props.load) {
+      setMainTitle(props.getTitle(props.item._id))
+    }
+  }, [props.load])
 
   const callbacks = {
-    
-    onRemove: e => props.onRemove(props.item._id),
-    onClose: e => props.onClose(),
-    title: () => store.actions.lang.getProductTitle(props.item._id, select.lang)
-
+    onRemove: () => props.onRemove(props.item._id),
+    onClose: () => props.onClose(),
+    title: () => props.getTitle(props.item._id)
   };
+
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link to={`/products/${props.item._id}`} onClick={callbacks.onClose} className={cn('title')}>{callbacks.title()}</Link>
+      <div className={cn('wrapper')}>
+        <Link to={`${props.link}/${props.item._id}`} onClick={callbacks.onClose} className={cn('title')}>{mainTitle}</Link>
+      </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {select.dict.piece}</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.dict.piece}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>{select.dict.delete}</button>
+          <button onClick={callbacks.onRemove}>{props.dict.delete}</button>
         </div>
       </div>
     </div>
@@ -48,6 +47,7 @@ ItemBasket.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
     amount: PropTypes.number,
+    dict: PropTypes.array
   }).isRequired,
   onRemove: propTypes.func,
 };

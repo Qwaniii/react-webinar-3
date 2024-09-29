@@ -10,16 +10,21 @@
   padding: 20px 10px 20px 20px;
 }
 
-.ItemBasket-title {
+.ItemBasket-wrapper {
   width: 100%;
   padding: 20px 10px;
-  text-decoration: none;
-  color: black;
-  cursor: pointer
 }
 
+
+.ItemBasket-title {
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  transition: all .3s;
+}
+  
 .ItemBasket-title:hover {
-  text-decoration:underline;
+  border-bottom: .3px solid black ;  
 }
 
 .ItemBasket-right {

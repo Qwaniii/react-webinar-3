@@ -3,14 +3,8 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from '../../utils';
 import './style.css';
-import { Link } from 'react-router-dom';
-import useSelector from '../../store/use-selector';
 
-function BasketTool({ sum, amount, onOpen }) {
-  const select = useSelector(state => ({
-    dict: state.lang.dict,
-    lang: state.lang.language,
-  }));
+function BasketTool({ sum, amount, onOpen, dict, lang }) {
 
   const item = {
     ru: {
@@ -32,14 +26,13 @@ function BasketTool({ sum, amount, onOpen }) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <Link to={`/`} className={cn('left')}>{select.dict.main}</Link>
-      <div className={cn('main')}><span className={cn('label')}>{select.dict.inBasket}:</span>
+      <div className={cn('main')}><span className={cn('label')}>{dict.inBasket}:</span>
       <span className={cn('total')}>
         {amount
-          ? `${amount} ${plural(amount, item[select.lang], option[select.lang])} / ${numberFormat(sum)} ₽`
-          : `${select.dict.empty}`}
+          ? `${amount} ${plural(amount, item[lang], option[lang])} / ${numberFormat(sum)} ₽`
+          : `${dict.empty}`}
       </span>
-      <button onClick={onOpen}>{select.dict.goTo}</button></div>
+      <button onClick={onOpen}>{dict.goTo}</button></div>
     </div>
   );
 }
