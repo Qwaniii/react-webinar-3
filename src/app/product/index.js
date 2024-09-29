@@ -56,6 +56,7 @@ function Product() {
       <Head 
         title={select?.product?.title}  
         changeLang={callbacks.changeLang}
+        lang={select.lang}
       />
       <MainMenu 
         menu={select.dict.main}

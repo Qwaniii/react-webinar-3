@@ -1,0 +1,31 @@
+.Translate {
+    padding: 10px;
+    opacity: .3;
+    transition: all .3s;
+  }
+  
+  .Translate span {
+    cursor: pointer;
+    transition: all .3s;
+  
+  }
+  
+  .Translate span:hover {
+    opacity: .8;
+  }
+  
+  .Translate span:active {
+    color: blue
+  }
+  
+  .Translate.active {
+    border-radius: 50%;
+    background-color: white;
+    color: black;
+    opacity: 1;
+    font-weight: bold;
+  }
+  
+  
+  
+  

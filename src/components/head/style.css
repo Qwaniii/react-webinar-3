@@ -11,33 +11,3 @@
   padding: 20px 20px 10px;
 }
 
-.Head-lang {
-  padding: 10px;
-  opacity: .3;
-  transition: all .3s;
-}
-
-.Head-lang span {
-  cursor: pointer;
-  transition: all .3s;
-
-}
-
-.Head-lang span:hover {
-  opacity: .8;
-}
-
-.Head-lang span:active {
-  color: blue
-}
-
-.Head-lang.active {
-  border-radius: 50%;
-  background-color: white;
-  color: black;
-  opacity: 1;
-  font-weight: bold;
-}
-
-
-
