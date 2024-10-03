@@ -36,24 +36,25 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 
 
 export function sortCategories(arr) {
-  let category = []
-  let sortArr = arr.map(item => {
-    item.value = item._id
-    category.push(item)
-    if (item.children.length) {
-      item.children.map(i => {
-        i.value = i._id
-        i.title = `- ${i.title}`
-        category.push(i)
-        if(i.children.length) {
-          i.children.map(child => {
-            child.value = child ._id
-            child.title = `- - ${child.title}`
-            category.push(child)
-          })
+  let newCategories = arr.filter(category => !category.parent);
+  let categoriesChild = arr.filter(category => category.parent);
+
+  while (categoriesChild.length > 0) {
+    let sortedCategories = [];
+    categoriesChild.map(category => (category.title = `- ${category.title}`));
+    newCategories.forEach(element => {
+      sortedCategories.push(element);
+      categoriesChild.map(category => {
+        if (category.parent._id == element._id) {
+          sortedCategories.push(category);
         }
-      })
-    }
-  })
-  return category
+      });
+      categoriesChild = categoriesChild.filter(
+        category => element._id != category.parent._id,
+      );
+    });
+    newCategories = sortedCategories;
+  }
+  return newCategories;
+
 }

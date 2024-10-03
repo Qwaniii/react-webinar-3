@@ -17,6 +17,7 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
     categories: state.catalog.allCategories
   }));
 
@@ -43,12 +44,12 @@ function CatalogFilter() {
     category: useMemo(
       () => [
         {value: "", title: "Все"},
-        [...select.categories.map(item => {
-          item = {...item, value: item._id}
-        })]
+        ...sortCategories(select.categories).map(item => {
+          return { value: item._id, title: item.title };
+        }),
       ]
       ,
-      []
+      [select.categories]
     )
   };
 
@@ -56,7 +57,7 @@ function CatalogFilter() {
 
   return (
     <SideLayout padding="medium">
-      <Select options={select.categories} value={options.category} onChange={callbacks.onCategory} />
+      <Select options={options.category} value={select.category} onChange={callbacks.onCategory} />
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort} />
       <Input
         value={select.query}

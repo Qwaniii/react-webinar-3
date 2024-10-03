@@ -90,7 +90,7 @@ class CatalogState extends StoreModule {
       'search[query]': params.query,
     };
 
-    params.category ? apiParams = {...this.apiParams,'search[category]': params.category,} : this.apiParams
+    params.category ? apiParams['search[category]'] = params.category : this.apiParams
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
@@ -109,27 +109,6 @@ class CatalogState extends StoreModule {
       },
       'Загружен список товаров из АПИ',
     );
-
-    // //добавим массив children
-    // let objDict = categoriesJson.result.items.reduce(function(p,c) {
-    //   p[c._id] = c;
-    //   c.children = [];
-    //   return p;
-    // }, {})
-    // //построим дерево с вложенными children
-    // let tree = categoriesJson.result.items.reduce(function(p,c, i) {
-    //   let arr = []
-    //   if (!c.parent) {
-    //     p[c._id]=c
-    //   }
-    //   else {
-    //       objDict[c.parent._id].children.push(c);
-    //   }
-    //   return p;
-    // }, {})
-    // console.log(tree)
-
-
   }
 
 
