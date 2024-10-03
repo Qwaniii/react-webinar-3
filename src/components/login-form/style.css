@@ -1,0 +1,26 @@
+.LoginForm {
+    padding: 20px;
+}
+
+.LoginForm-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+    gap: 20px;
+}
+
+.LoginForm-input {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.LoginForm-button {
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.LoginForm-error {
+    color: red;
+    font-size: 12px;
+}

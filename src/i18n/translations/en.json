@@ -9,10 +9,15 @@
   "basket.total": "Total",
   "basket.unit": "pcs",
   "basket.delete": "Delete",
+  "login.enter": "Login",
   "article.add": "Add",
   "filter.reset": "Reset",
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "login": {
+    "enter": "Login",
+    "exit": "Logout"
+    }
 }

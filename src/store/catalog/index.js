@@ -16,9 +16,11 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
+        category: '',
       },
       count: 0,
       waiting: false,
+      allCategories: [],
     };
   }
 
@@ -36,6 +38,7 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
@@ -79,7 +82,7 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
 
-    const apiParams = {
+    let apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
@@ -87,18 +90,55 @@ class CatalogState extends StoreModule {
       'search[query]': params.query,
     };
 
+    params.category ? apiParams = {...this.apiParams,'search[category]': params.category,} : this.apiParams
+
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
+    //получим все категории
+    const getCategoies = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
+    const categoriesJson = await getCategoies.json()
+
+ 
     this.setState(
       {
         ...this.getState(),
         list: json.result.items,
         count: json.result.count,
+        allCategories: categoriesJson.result.items,
         waiting: false,
       },
       'Загружен список товаров из АПИ',
     );
+
+    // //добавим массив children
+    // let objDict = categoriesJson.result.items.reduce(function(p,c) {
+    //   p[c._id] = c;
+    //   c.children = [];
+    //   return p;
+    // }, {})
+    // //построим дерево с вложенными children
+    // let tree = categoriesJson.result.items.reduce(function(p,c, i) {
+    //   let arr = []
+    //   if (!c.parent) {
+    //     p[c._id]=c
+    //   }
+    //   else {
+    //       objDict[c.parent._id].children.push(c);
+    //   }
+    //   return p;
+    // }, {})
+    // console.log(tree)
+
+
+  }
+
+
+  async setCategories() {
+
+
   }
 }
 
 export default CatalogState;
+
+
