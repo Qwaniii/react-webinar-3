@@ -30,8 +30,10 @@ function LoginForm({ setUserData, userData, onSubmit, error, auth }) {
                 <label htmlFor="password">Пароль</label>
                 <input type="password" minLength={6} id="password" defaultValue="" required onChange={callbacks.password}/>
             </div>
-            <input type="submit" value="Войти" className={cn('button')}></input>
-            {error.message && <div className={cn('error')}>{error.message}<div>{error.type}</div></div>}
+            <div className={cn('footer')}>
+                <input type="submit" value="Войти" className={cn('button')}></input>
+                {error.message && <div className={cn('error')}>{error.message}! {error.type}</div>}
+            </div>
         </form>
         </div>
     </Spinner>

@@ -15,12 +15,21 @@
     gap: 5px;
 }
 
+.LoginForm-footer {
+    padding-top: 15px;
+
+    position: relative;
+
+}
+
 .LoginForm-button {
     cursor: pointer;
     align-self: flex-start;
 }
 
 .LoginForm-error {
+    position: absolute;
+    top: -18px;
     color: red;
     font-size: 12px;
 }
