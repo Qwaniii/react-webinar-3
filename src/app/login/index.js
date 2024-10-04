@@ -10,7 +10,7 @@ import Navigation from '../../containers/navigation';
 import LoginForm from '../../components/login-form';
 import { useNavigate } from 'react-router-dom';
 
-function Login(props) {
+function Login() {
   
   const store = useStore();
   const navigate = useNavigate()
@@ -55,6 +55,7 @@ function Login(props) {
                   onSubmit={callbacks.login}
                   error={select.error}
                   auth={select.auth}
+                  text={t('login')}
       />
     </PageLayout>
   );

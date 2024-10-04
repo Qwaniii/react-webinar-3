@@ -7,7 +7,7 @@ import Spinner from '../spinner';
 /**
  * Контейнер со всеми фильтрами каталога
  */
-function LoginForm({ setUserData, userData, onSubmit, error, auth }) {
+function LoginForm({ setUserData, userData, onSubmit, error, auth, text }) {
 
     const cn = bem('LoginForm');
 
@@ -20,18 +20,18 @@ function LoginForm({ setUserData, userData, onSubmit, error, auth }) {
   return (
     <Spinner active={auth}>
         <div className={cn('')}>
-            <h2>Вход</h2>
+            <h2>{text.enter}</h2>
         <form className={cn('form')} onSubmit={callbacks.submit}>
             <div className={cn('input')}>
-                <label htmlFor="email">Логин</label>
+                <label htmlFor="email">{text.login}</label>
                 <input type="text" id="email" defaultValue="" onChange={callbacks.login} required/>
             </div>
             <div className={cn('input')}>
-                <label htmlFor="password">Пароль</label>
+                <label htmlFor="password">{text.pass}</label>
                 <input type="password" minLength={6} id="password" defaultValue="" required onChange={callbacks.password}/>
             </div>
             <div className={cn('footer')}>
-                <input type="submit" value="Войти" className={cn('button')}></input>
+                <input type="submit" value={text.send} className={cn('button')}></input>
                 {error.message && <div className={cn('error')}>{error.message}! {error.type}</div>}
             </div>
         </form>

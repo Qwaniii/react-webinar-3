@@ -32,8 +32,6 @@ function Profile(props) {
 
   const { t } = useTranslate();
 
-
-
   const callbacks = {
     logout: useCallback(() => store.actions.login.logOut(), [store])
 
@@ -52,6 +50,7 @@ function Profile(props) {
       <ProfileForm  profile={select.profile}
                     email={select.email}
                     auth={select.auth}
+                    text={t('profile')}
       />
     </PageLayout>
   );

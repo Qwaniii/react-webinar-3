@@ -17,7 +17,15 @@
     "other": "articles"
   },
   "login": {
-    "enter": "Login",
-    "exit": "Logout"
+    "enter": "Log In",
+    "exit": "Log out",
+    "login": "Login",
+    "pass": "Password",
+    "send": "Send"
+    },
+    "profile": {
+      "profile": "Info",
+      "name": "Name",
+      "phone": "Phone"
     }
 }

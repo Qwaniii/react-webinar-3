@@ -14,13 +14,13 @@ function ProfileForm(props) {
   return (
     <Spinner active={!props.auth}>
         <div className={cn('')}>
-            <h2>Профиль</h2>
+            <h2>{props.text.profile}</h2>
             <div className={cn('text')}>
-                <div>Имя:</div>
+                <div>{props.text.name}:</div>
                 <div  className={cn('value')}>{props.profile.name}</div>
             </div>
             <div className={cn('text')}>
-                <div>Телефон:</div>
+                <div>{props.text.phone}:</div>
                 <div  className={cn('value')}>{props.profile.phone}</div>
             </div>
             <div className={cn('text')}>
