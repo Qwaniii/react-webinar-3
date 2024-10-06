@@ -40,11 +40,11 @@ function Profile() {
       </Head>
       <Navigation />
       <ProfileExist>
-        <ProfileForm  profile={select.profile}
+        {select.profile && <ProfileForm  profile={select.profile}
                       email={select.email}
                       auth={select.auth}
                       text={t('profile')}
-        />
+        />}
       </ProfileExist>
     </PageLayout>
   );
