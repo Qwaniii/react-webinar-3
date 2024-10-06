@@ -1,17 +1,19 @@
 import { memo, useCallback, useEffect, useMemo } from 'react';
 import './style.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Spinner from '../spinner';
 
 /**
  * Контейнер со всеми фильтрами каталога
  */
-function LoginBar({ name, button, logout }) {
+function LoginBar({ nameUser="", button, logout }) {
+
+  const location = useLocation()
   
-  if(name) {
+  if(nameUser) {
   return (
     <div className='LoginBar'>
-        <Link to={'/profile'}>{name}</Link>
+        <Link to= '/profile' state = {{pathname: location.pathname}}>{nameUser}</Link>
         <button onClick={logout}>{button.exit}</button>
     </div>
     )
@@ -20,7 +22,8 @@ function LoginBar({ name, button, logout }) {
 
   return (
       <div className='LoginBar'>
-        <Link to={'/login'}><button>{button.enter}</button></Link>
+        <Link to= '/login' state = {{pathname: location.pathname}}>{nameUser}
+        <button>{button.enter}</button></Link>
       </div>  
     )
   ;

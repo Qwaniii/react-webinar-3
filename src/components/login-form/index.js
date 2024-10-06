@@ -31,8 +31,8 @@ function LoginForm({ setUserData, userData, onSubmit, error, auth, text }) {
                 <input type="password" minLength={6} id="password" defaultValue="" required onChange={callbacks.password}/>
             </div>
             <div className={cn('footer')}>
-                <input type="submit" value={text.send} className={cn('button')}></input>
                 {error.message && <div className={cn('error')}>{error.message}! {error.type}</div>}
+                <input type="submit" value={text.send} className={cn('button')}></input>
             </div>
         </form>
         </div>

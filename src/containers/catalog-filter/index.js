@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -14,11 +14,15 @@ import item from '../../components/item';
 function CatalogFilter() {
   const store = useStore();
 
+  useEffect(() => {
+    store.actions.category.getCategory()
+  }, [])
+
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.allCategories
+    categories: state.category.allCategories
   }));
 
   const callbacks = {

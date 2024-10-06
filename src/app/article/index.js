@@ -23,13 +23,13 @@ function Article() {
 
   useInit(() => {
     store.actions.article.load(params.id);
-    store.actions.login.setToken();
+    // store.actions.login.setToken();
   }, [params.id]);
 
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    user: state.login.profile.name,
+    user: state.login.nameData.name,
 
   }));
 
@@ -44,7 +44,7 @@ function Article() {
 
   return (
     <PageLayout>
-      <LoginBar name={select.user} 
+      <LoginBar nameUser={select.user} 
                 button={t('login')}
                 logout={callbacks.logout}
       />

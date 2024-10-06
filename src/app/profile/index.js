@@ -8,27 +8,22 @@ import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
 import Navigation from '../../containers/navigation';
 import LoginForm from '../../components/login-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ProfileForm from '../../components/profile-form';
+import ProfileExist from '../../containers/profile-exist';
 
-function Profile(props) {
+function Profile() {
   
   const store = useStore();
-  const navigate = useNavigate()
-  const token = localStorage.getItem('token')
+  const location = useLocation()
   
   const select = useSelector(state => ({
-    profile: state.login.profile,
-    email: state.login.nameData.email,
-    auth: state.login.auth.profile,
+    user: state.login.nameData,
+    email: state.profile.nameData.email,
+    profile: state.profile.profile,
+    auth: state.profile.done,
   }))
 
-  useEffect(() => {
-    if(!token)  {
-      navigate('/login')
-    } else store.actions.login.getUserInfo(token)
-    
-  }, [token])
 
   const { t } = useTranslate();
 
@@ -39,7 +34,7 @@ function Profile(props) {
 
   return (
     <PageLayout>
-      <LoginBar name={select.profile.name} 
+      <LoginBar nameUser={select.user?.name} 
                 button={t('login')}
                 logout={callbacks.logout}
       />
@@ -47,11 +42,13 @@ function Profile(props) {
         <LocaleSelect/>
       </Head>
       <Navigation />
-      <ProfileForm  profile={select.profile}
-                    email={select.email}
-                    auth={select.auth}
-                    text={t('profile')}
-      />
+      <ProfileExist>
+        <ProfileForm  profile={select.profile}
+                      email={select.email}
+                      auth={select.auth}
+                      text={t('profile')}
+        />
+      </ProfileExist>
     </PageLayout>
   );
 }

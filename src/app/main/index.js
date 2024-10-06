@@ -21,14 +21,13 @@ function Main() {
   useInit(
     () => {
       store.actions.catalog.initParams();
-      store.actions.login.setToken();
     },
     [],
     true,
   );
 
   const select = useSelector(state => ({
-    user: state.login.profile.name,
+    user: state.login.nameData?.name,
     token: state.login.token
   }))
 
@@ -41,7 +40,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <LoginBar name={select.user} 
+      <LoginBar nameUser={select.user} 
                 button={t('login')}
                 logout={callbacks.logout}
 

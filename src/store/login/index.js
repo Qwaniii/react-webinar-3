@@ -7,30 +7,43 @@ class LoginState extends StoreModule {
    */
   initState() {
     return {
-        profile: {},
-        token: "",
+        token: localStorage.getItem('token') ? localStorage.getItem('token') : "",
         nameData: {},
         error: {},
-        auth: {
-          login: false,
-          profile: false
-        }
+        auth: false
     };
   }
 
-  setToken() {
-    this.setState({
-      ...this.getState(),
-      token: localStorage.getItem('token') ? localStorage.getItem('token')  : ""
-    })
-    const existToken = this.getState().token
-    if(existToken) this.getUserInfo(existToken)
+  async getMe() {
+    const existToken = localStorage.getItem('token')
+
+    if(existToken) {
+      this.setState({
+        ...this.getState(),
+        token: existToken,
+        auth: false,
+      })
+  
+      const response = await fetch('/api/v1/users/self?fields=*', {
+        headers: {
+          'X-token': existToken,
+          'Content-Type': 'application/json',
+        },
+      })
+      const res = await response.json()
+      this.setState({
+        ...this.getState(),
+        nameData: res.result.profile,
+        auth: true,
+      })
+
+    }
   }
 
   async logIn(body) {
     this.setState({
       ...this.getState(),
-      auth: {...this.getState().auth, login: false},
+      auth: false,
       error: {}
     })
     try {
@@ -47,17 +60,16 @@ class LoginState extends StoreModule {
       localStorage.setItem('token', res.result.token)
       this.setState({
         ...this.getState(),
-        nameData: res.result.user,
+        nameData: res.result.user.profile,
         token: res.result.token,
-        profile: res.result.user.profile,
-        auth: {...this.getState().auth, login: true},
+        auth: true,
         error: {}
       })
     } else {
       this.setState({
         ...this.getState(),
         error: {...res.error, type: res.error.data.issues[0].message},
-        auth: {...this.getState().auth, login: false},
+        auth: false,
       })
     }
   } catch(e) {
@@ -68,7 +80,7 @@ class LoginState extends StoreModule {
   async logOut() {
     this.setState({
       ...this.getState(),
-      auth: {...this.getState().auth, login: true},
+      auth: true,
       error: {}
     })
     const token = localStorage.getItem('token')
@@ -88,15 +100,14 @@ class LoginState extends StoreModule {
         ...this.getState(),
         nameData: {},
         token: "",
-        profile: {},
-        auth: {...this.getState().auth, login: false},
+        auth: false,
         error: {}
       })
     } else {
       this.setState({
         ...this.getState(),
         error: {...res.error, type: res.error.data.issues[0].message},
-        auth: {...this.getState().auth, login: true},
+        auth: true,
       })
     }
   } catch(e) {
@@ -104,26 +115,14 @@ class LoginState extends StoreModule {
   }
   }
 
-  async getUserInfo(token) {
+  clearError() {
     this.setState({
-      ...this.getState(),
-      auth: {...this.getState().auth, profile: false},
-    })
-
-    const response = await fetch('/api/v1/users/self?fields=*', {
-      headers: {
-        'X-token': token,
-        'Content-Type': 'application/json',
-      },
-    })
-    const res = await response.json()
-    this.setState({
-      ...this.getState(),
-      nameData: res.result,
-      profile: res.result.profile,
-      auth: {...this.getState().auth, profile: true},
+      ...this.getState,
+      error: {}
     })
   }
+
+  
 }
 
 export default LoginState

@@ -3,6 +3,7 @@
     justify-content: flex-end;
     padding: 10px 20px;
     gap: 20px;
+    border-bottom: .3px solid gray;
 }
 
 .LoginBar button {
