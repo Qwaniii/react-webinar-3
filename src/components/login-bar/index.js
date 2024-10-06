@@ -22,7 +22,7 @@ function LoginBar({ nameUser="", button, logout }) {
 
   return (
       <div className='LoginBar'>
-        <Link to= '/login' state = {{pathname: location.pathname}}>{nameUser}
+        <Link to= '/login' state = {{pathname: location.pathname}}>
         <button>{button.enter}</button></Link>
       </div>  
     )

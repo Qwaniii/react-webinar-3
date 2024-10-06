@@ -20,7 +20,7 @@ function Main() {
   useInit(
     () => {
       store.actions.catalog.initParams();
-      store.actions.category.getCategory()
+      store.actions.category.getCategory();
 
     },
     [],
@@ -28,7 +28,7 @@ function Main() {
   );
 
   const select = useSelector(state => ({
-    user: state.login.nameData?.name,
+    user: state.login.nameData.name,
     token: state.login.token
   }))
 

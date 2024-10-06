@@ -93,7 +93,6 @@ class LoginState extends StoreModule {
           },
     })
     const res = await response.json()
-    console.log(res)
     if(res.result) {
       localStorage.removeItem('token')
       this.setState({
@@ -117,7 +116,7 @@ class LoginState extends StoreModule {
 
   clearError() {
     this.setState({
-      ...this.getState,
+      ...this.getState(),
       error: {}
     })
   }

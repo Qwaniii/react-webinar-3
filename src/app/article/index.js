@@ -29,7 +29,7 @@ function Article() {
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    user: state.login.nameData.name,
+    user: state.login.nameData,
 
   }));
 
@@ -44,7 +44,7 @@ function Article() {
 
   return (
     <PageLayout>
-      <LoginBar nameUser={select.user} 
+      <LoginBar nameUser={select.user.name} 
                 button={t('login')}
                 logout={callbacks.logout}
       />
