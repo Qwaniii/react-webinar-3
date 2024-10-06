@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -7,15 +7,12 @@ import LoginBar from '../../components/login-bar';
 import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
 import Navigation from '../../containers/navigation';
-import LoginForm from '../../components/login-form';
-import { useLocation, useNavigate } from 'react-router-dom';
 import ProfileForm from '../../components/profile-form';
 import ProfileExist from '../../containers/profile-exist';
 
 function Profile() {
   
   const store = useStore();
-  const location = useLocation()
   
   const select = useSelector(state => ({
     user: state.login.nameData,

@@ -8,7 +8,6 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
-import Login from '../login';
 import useSelector from '../../hooks/use-selector';
 import LoginBar from '../../components/login-bar';
 
@@ -21,6 +20,8 @@ function Main() {
   useInit(
     () => {
       store.actions.catalog.initParams();
+      store.actions.category.getCategory()
+
     },
     [],
     true,
