@@ -1,0 +1,47 @@
+import { memo, useState } from 'react';
+import { cn as bem } from '@bem-react/classname';
+import './style.css';
+import { Link } from 'react-router-dom';
+
+function AddComment({ send, id, waiting, session, answer, name, commentCancel, gap, onSignIn}) {
+  const cn = bem('AddComment');
+
+  const [text, setText] = useState("")
+
+  const callbacks = {
+    onChange: (e) => setText(e.target.value),
+    addComment: ()  => {
+      const body = {
+        "text": text,
+        "parent": {"_id":  id, "_type": answer ? "comment" : "article"}
+      }
+      send(id, body)
+      if(!waiting) {
+        setText("")
+      }
+    }
+  };
+
+  return (
+    <div className={cn()} style={{marginLeft: answer ? `${gap}px` : ``}}>
+      {session ? 
+      <>
+        <div className={cn('head')}>{answer ? `Новый ответ` : `Новый комментарий`}</div>
+        <textarea className={cn('textarea')} type="text" placeholder={answer ? `Мой ответ для ${name}` : 'Текст'} value={text} onChange={callbacks.onChange}></textarea>
+        <div className={cn('footer')}>
+          <button className={cn('button')} onClick={callbacks.addComment}>Отправить</button>
+          {answer &&  <button className={cn('button')} onClick={() => commentCancel()}>Отмена</button>}
+        </div>
+      </>
+      :
+      <div className={cn('auth')}>
+        <div className={cn('link')} onClick={() => onSignIn()}>Войдите</div><span>, чтобы иметь возможность комментировать. </span>
+        {answer &&  <div className={cn('cancel')} onClick={() => commentCancel()}>Отмена</div>}
+      </div>
+      }
+    </div>
+  );
+}
+
+
+export default memo(AddComment);

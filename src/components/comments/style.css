@@ -1,0 +1,11 @@
+.Comments {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 40px;
+}
+
+.Comments-head {
+  font-size: 24px;
+  font-weight: 400px;
+}
