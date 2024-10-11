@@ -6,32 +6,36 @@ import AddComment from '../add-comment';
 
 function Comments({ data, count, send, waiting, session, commentId, commentOpen, commentCancel, showForm, id, onSignIn }) {
 
+  console.log(data)
 
   return (
     <div className="Comments">
       <div className='Comments-head'>Комментарии ({count ? count : 0})</div>
       {data.map(item => (
-        <>
-          <Comment  key={item._id}  
+        <div key={item._id} >
+          <Comment   
                     item={item}
                     name={item.author.profile.name} 
                     date={item.dateCreate} 
-                    text={item.text} send={send} 
+                    text={item.text} 
+                    send={send} 
                     commentOpen={commentOpen}
                     gap={item.gap}
                     />
-            {commentId === item._id && <AddComment  
-                                              key={item._id} 
+            {commentId.id === item._id && <AddComment  
                                               id={item._id} 
                                               answer={true} 
                                               send={send} 
                                               waiting={waiting} 
                                               session={session}
-                                              name={item.author.profile.name} 
-                                              gap={item.gap}
+                                              name={commentId.name} 
+                                              item={item}
+                                              // gap={item.children.length ? item.children[item.children.length - 1].gap : item.gap}
+                                              // gap={item.gap}
+                                              gap={commentId.gap}
                                               commentCancel={commentCancel}
                                               onSignIn={onSignIn}/>}
-          </>
+          </div>
       ))}
       {showForm && <AddComment session={session} send={send} waiting={waiting} id={id} onSignIn={onSignIn}/>}
     </div>

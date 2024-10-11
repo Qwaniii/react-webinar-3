@@ -17,7 +17,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 function CommentsList({ id }) {
 
-  const [commentId, setCommentId] = useState(null);
+  let params = {id: null, gap: null, name: ""}
+
+  const [commentId, setCommentId] = useState(params);
   const [showForm, setShowForm] = useState(true);
 
   const navigate = useNavigate()
@@ -45,17 +47,17 @@ function CommentsList({ id }) {
     // addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     addComment: (id, body)  => {
       dispatch(commentsActions.send(id, selectState.token, body))
-      setCommentId(null);
+      setCommentId(params);
       setShowForm(true);
     },
 
     cancel: () => {
-      setCommentId(null);
+      setCommentId(params);
       setShowForm(true);
     },
 
-    open: id => {
-      setCommentId(id);
+    open: (id, gap, name) => {
+      setCommentId({id, gap, name});
       setShowForm(false);
     },
 

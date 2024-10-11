@@ -1,8 +1,8 @@
 .Comments {
+  padding: 40px;
   display: flex;
   flex-direction: column;
   gap: 30px;
-  padding: 40px;
 }
 
 .Comments-head {

@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import treeToList from '../../utils/tree-to-list';
 
 function Comment(props) {
   const { name, date, text, commentOpen, gap, item } = props;
@@ -15,11 +16,13 @@ function Comment(props) {
     day: "numeric",
   }
 
-  // const comment = () => {
-  //   item.children.length ? 
-  //   commentOpen(item.children[item.children.length - 1]._id)
-  //   : commentOpen(item._id)
-  // }
+  let children = treeToList(item.children)
+
+  const comment = () => {
+    item.children.length ? 
+    commentOpen(children[children.length - 1]._id, gap, name)
+    : commentOpen(item._id, gap, name)
+  }
 
 
   return (
@@ -33,7 +36,7 @@ function Comment(props) {
       <div className={cn('prop')}>
         <div className={cn('text')}>{text}</div>
       </div>
-      <button type="button" className={cn('button')} onClick={() => commentOpen(item._id)}>Ответить</button>
+      <button type="button" className={cn('button')} onClick={() => comment()}>Ответить</button>
     </div>
   );
 }

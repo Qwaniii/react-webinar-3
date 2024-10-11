@@ -22,8 +22,11 @@ function AddComment({ send, id, waiting, session, answer, name, commentCancel, g
     }
   };
 
+  // let gap =  item ? item.children[item.children.length - 1].gap : item.gap
+  // console.log(item)
+
   return (
-    <div className={cn()} style={{marginLeft: answer ? `${gap}px` : ``}}>
+    <div className={cn()} style={{marginLeft: answer ? `${gap}px` : ``, paddingTop: answer ? '30px' : ''}}>
       {session ? 
       <>
         <div className={cn('head')}>{answer ? `Новый ответ` : `Новый комментарий`}</div>
