@@ -7,6 +7,7 @@ import AddComment from '../../components/add-comment';
 import useSelectorState from '../../hooks/use-selector';
 import shallowequal from 'shallowequal';
 import commentsActions from '../../store-redux/comments/actions';
+import treeToList from '../../utils/tree-to-list';
 import listToTree from '../../utils/list-to-tree';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -63,17 +64,22 @@ function CommentsList({ id }) {
       navigate('/login', { state: { back: location.pathname } });
     }, [location.pathname]),
 
-    treeOfComments: listToTree([{_id: id, parent: null}, ...select.data])
+    // treeOfComments: listToTree([{_id: id, parent: null}, ...select.data])
 
+    treeOfComments: treeToList(listToTree([{_id: id, parent: null}, ...select.data])[0].children, (item, level) => ({...item, gap: (level)*30}))
 
   };
+
+
+  // console.log(treeToList(listToTree([{_id: id, parent: null}, ...select.data])[0].children, (item, level) => ({...item, gap: (level + 1)*30})))
+
 
   // const { t } = useTranslate();
 
   return (
     <>
       <Spinner active={select.waiting}>
-        {select.data && <Comments data={callbacks.treeOfComments[0].children} 
+        {select.data && <Comments data={callbacks.treeOfComments} 
                                   send={callbacks.addComment} 
                                   count={select.count} 
                                   waiting={select.waiting} 
