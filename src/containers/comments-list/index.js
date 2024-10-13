@@ -27,7 +27,8 @@ function CommentsList({ id }) {
 
   const selectState = useSelectorState(state => ({
     token: state.session.token,
-    exist: state.session.exists
+    exist: state.session.exists,
+    user: state.session.user,
   }))
 
 
@@ -68,7 +69,7 @@ function CommentsList({ id }) {
 
     // treeOfComments: listToTree([{_id: id, parent: null}, ...select.data])
 
-    treeOfComments: treeToList(listToTree([{_id: id, parent: null}, ...select.data])[0].children, (item, level) => ({...item, gap: (level)*30}))
+    treeOfComments: treeToList(listToTree([{_id: id, parent: null}, ...select.data])[0].children, (item, level) => ({...item, gap: level<15 ? (level)*30 : 450}))
 
   };
 
@@ -91,7 +92,10 @@ function CommentsList({ id }) {
                                   commentCancel={callbacks.cancel}
                                   showForm={showForm}
                                   onSignIn={callbacks.onSignIn}
-                                  id={id}/>
+                                  id={id}
+                                  nameSession={selectState.user.profile?.name}
+                                  />
+                                  
                                   }
       </Spinner>
     </>

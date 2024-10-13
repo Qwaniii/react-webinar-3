@@ -1,9 +1,8 @@
 import { memo, useState } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
-import { Link } from 'react-router-dom';
 
-function AddComment({ send, id, waiting, session, answer, name, commentCancel, gap, onSignIn}) {
+function AddComment({ send, id, waiting, session, answer, commentCancel, gap, onSignIn, myRef}) {
   const cn = bem('AddComment');
 
   const [text, setText] = useState("")
@@ -22,6 +21,7 @@ function AddComment({ send, id, waiting, session, answer, name, commentCancel, g
     }
   };
 
+
   // let gap =  item ? item.children[item.children.length - 1].gap : item.gap
   // console.log(item)
 
@@ -30,9 +30,9 @@ function AddComment({ send, id, waiting, session, answer, name, commentCancel, g
       {session ? 
       <>
         <div className={cn('head')}>{answer ? `Новый ответ` : `Новый комментарий`}</div>
-        <textarea className={cn('textarea')} type="text" placeholder={answer ? `Мой ответ для ${name}` : 'Текст'} value={text} onChange={callbacks.onChange}></textarea>
+        <textarea className={cn('textarea')} type="text" placeholder={'Текст'} value={text} onChange={callbacks.onChange}></textarea>
         <div className={cn('footer')}>
-          <button className={cn('button')} onClick={callbacks.addComment}>Отправить</button>
+          <button className={cn('button')} disabled={text.length && !/^\s*$/.test(text) ? '' : "disabled"} onClick={callbacks.addComment}>Отправить</button>
           {answer &&  <button className={cn('button')} onClick={() => commentCancel()}>Отмена</button>}
         </div>
       </>

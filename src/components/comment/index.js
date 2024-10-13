@@ -4,7 +4,7 @@ import './style.css';
 import treeToList from '../../utils/tree-to-list';
 
 function Comment(props) {
-  const { name, date, text, commentOpen, gap, item } = props;
+  const { name, date, text, commentOpen, gap, item, nameSession, myRef } = props;
   const cn = bem('Comment');
 
   const createDate = new Date(date) 
@@ -22,13 +22,18 @@ function Comment(props) {
     item.children.length ? 
     commentOpen(children[children.length - 1]._id, gap, name)
     : commentOpen(item._id, gap, name)
+    document.querySelector(`[id="${item.children.length ? children[children.length - 1]._id : item._id}"]`).scrollIntoView({
+      behavior: "smooth",
+      inline: "nearest",
+      block: "center"
+    });  
   }
 
 
   return (
-    <div className={cn()} style={{marginLeft: `${gap}px`}}>
+    <div className={cn()} style={{marginLeft: `${gap}px`}} id={item._id}>
       <div className={cn('head')} >
-        <div className={cn('name')}>
+        <div className={cn(name == nameSession ? 'name_gray' : 'name')}>
           {name}
         </div>
         <div className={cn('date')}>{createDate.toLocaleString('ru-RU', options)}</div>
